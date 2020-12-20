@@ -18,7 +18,9 @@ export default {
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
   ],
-
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+  },
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
   ],
@@ -65,8 +67,29 @@ export default {
     defaultLocale: 'en'
   },
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
-
+  axios: {
+    baseURL: process.env.API_BASE_URL
+  },
+  /*
+   ** Auth configuration
+   */
+  auth: {
+    redirect: {
+      login: '/auth/sign-in'
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/api/users/login',
+            method: 'post',
+            propertyName: 'bearerToken'
+          },
+          user: { url: '/api/user', method: 'get', propertyName: false }
+        }
+      }
+    }
+  },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
   }
