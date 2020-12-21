@@ -1,7 +1,7 @@
 <template>
   <div>
-    <b-container>
-      <b-col cols="11" md="8" lg="6">
+    <b-container class="d-flex justify-center align-center" style="height: 100vh">
+      <b-col class="m-auto" cols="11" md="8" lg="6">
         <Nuxt />
       </b-col>
     </b-container>

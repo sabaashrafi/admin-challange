@@ -22,7 +22,7 @@ export default {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000'
   },
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [
+  plugins: ['~/mixins/index'
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
