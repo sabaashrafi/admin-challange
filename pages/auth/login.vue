@@ -1,78 +1,67 @@
 <template>
-  <div class="login-box">
+  <div class="login-box p-3 pt-4">
+    <h1 class="warm-grey text-center mb-4">
+      {{ $t('auth.login.title') }}
+    </h1>
     <b-form @submit.stop.prevent="onSubmit" @keydown.enter="onSubmit">
-      <b-form-group id="example-input-group-1" label="Name" label-for="example-input-1">
+      <b-form-group :label="$t('auth.emailInput')">
         <b-form-input
-          id="example-input-1"
-          v-model="$v.form.name.$model"
-          name="example-input-1"
-          :state="validateState('name')"
-          aria-describedby="input-1-live-feedback"
+          v-model="$v.form.email.$model"
+          name="email"
+          :state="validateState('email')"
         />
-
-        <b-form-invalid-feedback
-          id="input-1-live-feedback"
-        >
-          This is a required field and must be at least 3 characters.
-        </b-form-invalid-feedback>
+        <div v-if="submitted && $v.form.email.$error" class="invalid-feedback">
+          <span v-if="!$v.form.email.required">{{ $t('auth.validation.require') }}</span>
+          <span v-if="!$v.form.email.email">{{ $t('auth.validation.email') }}</span>
+        </div>
+      </b-form-group>
+      <b-form-group :label="$t('auth.passwordInput')">
+        <b-form-input
+          v-model="$v.form.password.$model"
+          name="password"
+          type="password"
+          :state="validateState('password')"
+        />
+        <div v-if="submitted && $v.form.password.$error" class="invalid-feedback">
+          <span v-if="!$v.form.password.required">{{ $t('auth.validation.require') }}</span>
+        </div>
       </b-form-group>
 
-      <b-form-group id="example-input-group-2" label="Food" label-for="example-input-2">
-        <b-form-select
-          id="example-input-2"
-          v-model="$v.form.food.$model"
-          name="example-input-2"
-          :options="foods"
-          :state="validateState('food')"
-          aria-describedby="input-2-live-feedback"
-        />
-
-        <b-form-invalid-feedback id="input-2-live-feedback">
-          This is a required field.
-        </b-form-invalid-feedback>
-      </b-form-group>
-
-      <b-button type="submit" variant="primary">
-        Submit
-      </b-button>
-      <b-button class="ml-2" @click="resetForm()">
-        Reset
+      <b-button block type="submit" variant="primary">
+        {{ $t('auth.login.button') }}
       </b-button>
     </b-form>
+    <p class="mt-2">{{ $t('auth.login.haveAccount') }} <strong @click="$router.push('/register')">{{ $t('auth.login.register') }}</strong></p>
   </div>
 </template>
 <script>
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required, email } from 'vuelidate/lib/validators'
 
 export default {
   layout: 'authLayout',
   data () {
     return {
-      foods: [
-        { value: null, text: 'Choose...' },
-        { value: 'apple', text: 'Apple' },
-        { value: 'orange', text: 'Orange' }
-      ],
+      submitted: false,
       form: {
-        name: null,
-        food: null
+        email: null,
+        password: null
       }
     }
   },
   validations: {
     form: {
-      food: {
+      password: {
         required
       },
-      name: {
+      email: {
         required,
-        minLength: minLength(3)
+        email
       }
     }
   },
   methods: {
-
     onSubmit () {
+      this.submitted = true
       this.$v.form.$touch()
       if (this.$v.form.$anyError) {
         return
@@ -85,6 +74,6 @@ export default {
 </script>
 <style lang="scss">
 .login-box{
-  background-color: red;
+  background-color:$bg-gray;
 }
 </style>

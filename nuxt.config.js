@@ -16,8 +16,7 @@ export default {
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: [
-  ],
+  css: ['~/assets/scss/main.scss'],
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000'
   },
@@ -41,7 +40,8 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // https://i18n.nuxtjs.org/
-    'nuxt-i18n'
+    'nuxt-i18n',
+    '@nuxtjs/style-resources'
   ],
 
   /**
@@ -65,6 +65,12 @@ export default {
       }
     ],
     defaultLocale: 'en'
+  },
+  /*
+   ** styleResources configuration
+   */
+  styleResources: {
+    scss: ['./assets/scss/main.scss']
   },
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
