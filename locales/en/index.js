@@ -2,6 +2,7 @@ export default {
   auth: {
     emailInput: 'Email',
     passwordInput: 'Password',
+    userInput: 'User',
     login: {
       title: 'LOGIN',
       button: 'Login',
@@ -16,7 +17,8 @@ export default {
     },
     validation: {
       require: 'Required field',
-      email: 'Email is invalid'
+      email: 'Email is invalid',
+      minLength: 'password must be at least 4 characters.'
     }
   }
 }
