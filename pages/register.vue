@@ -86,12 +86,14 @@ export default {
         return
       }
       try {
-        await this.$axios.post('/users', {
+        const response = await this.$axios.post('/users', {
           user: { ...this.form }
-        }).then((resp) => {
-          console.log(resp)
-          this.$auth.setUserToken(resp.data.user.token)
         })
+        if (response) {
+          console.log(response)
+          this.$auth.setUserToken(response.data.user.token)
+          this.$router.push('/')
+        }
 
         this.$router.push('/')
       } catch (e) {

@@ -28,9 +28,9 @@
         </div>
       </b-form-group>
 
-      <b-button block type="submit" variant="primary">
+      <BaseButton :loading="buttonLoading" block :native-type="'submit'" :variant="'primary'">
         {{ $t('auth.login.button') }}
-      </b-button>
+      </BaseButton>
     </b-form>
     <p class="mt-2">
       {{ $t('auth.login.haveAccount') }} <nuxt-link to="/register">
@@ -47,6 +47,7 @@ export default {
   data () {
     return {
       submitted: false,
+      buttonLoading: false,
       form: {
         email: null,
         password: null
@@ -73,16 +74,24 @@ export default {
       if (this.$v.form.$anyError) {
         return
       }
-
-      const response = await this.$auth.loginWith('local', {
-        data:
+      this.buttonLoading = true
+      try {
+        const response = await this.$auth.loginWith('local', {
+          data:
    {
      user: { ...this.form }
    }
-      })
-      console.log(response.data.user.token)
-      this.$auth.setUserToken(response.data.user.token)
-      this.$router.push('/')
+        })
+        if (response) {
+          console.log(response.data.user.token)
+          this.buttonLoading = false
+
+          this.$auth.setUserToken(response.data.user.token)
+          this.$router.push('/')
+        }
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }
