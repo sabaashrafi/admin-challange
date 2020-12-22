@@ -8,6 +8,7 @@
         <b-form-input
           v-model="$v.form.email.$model"
           name="email"
+          type="email"
           :state="validateState('email')"
         />
         <div v-if="submitted && $v.form.email.$error" class="invalid-feedback">
@@ -32,7 +33,9 @@
       </b-button>
     </b-form>
     <p class="mt-2">
-      {{ $t('auth.login.haveAccount') }} <strong @click="$router.push('/register')">{{ $t('auth.login.register') }}</strong>
+      {{ $t('auth.login.haveAccount') }} <nuxt-link to="/register">
+        {{ $t('auth.login.register') }}
+      </nuxt-link>
     </p>
   </div>
 </template>
@@ -54,7 +57,7 @@ export default {
     form: {
       password: {
         required,
-        minLength: minLength(4)
+        minLength: minLength(8)
 
       },
       email: {
@@ -64,14 +67,22 @@ export default {
     }
   },
   methods: {
-    onSubmit () {
+    async onSubmit () {
       this.submitted = true
       this.$v.form.$touch()
       if (this.$v.form.$anyError) {
         return
       }
 
-      alert('Form submitted!')
+      const response = await this.$auth.loginWith('local', {
+        data:
+   {
+     user: { ...this.form }
+   }
+      })
+      console.log(response.data.user.token)
+      this.$auth.setUserToken(response.data.user.token)
+      this.$router.push('/')
     }
   }
 }

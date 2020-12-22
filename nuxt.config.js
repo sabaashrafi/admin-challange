@@ -41,6 +41,7 @@ export default {
     '@nuxtjs/axios',
     // https://i18n.nuxtjs.org/
     'nuxt-i18n',
+    '@nuxtjs/auth',
     '@nuxtjs/style-resources'
   ],
 
@@ -87,11 +88,11 @@ export default {
       local: {
         endpoints: {
           login: {
-            url: '/api/users/login',
+            url: '/users/login',
             method: 'post',
             propertyName: 'bearerToken'
           },
-          user: { url: '/api/user', method: 'get', propertyName: false }
+          user: { url: '/user', method: 'get', propertyName: false }
         }
       }
     }

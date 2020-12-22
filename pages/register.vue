@@ -3,15 +3,15 @@
     <h1 class="warm-grey text-center mb-4">
       {{ $t('auth.Register.title') }}
     </h1>
-    <b-form @submit.stop.prevent="onSubmit" @keydown.enter="onSubmit">
+    <b-form @submit.stop.prevent="register" @keydown.enter="register">
       <b-form-group :label="$t('auth.userInput')">
         <b-form-input
-          v-model="$v.form.user.$model"
-          name="user"
-          :state="validateState('user')"
+          v-model="$v.form.username.$model"
+          name="username"
+          :state="validateState('username')"
         />
-        <div v-if="submitted && $v.form.user.$error" class="invalid-feedback">
-          <span v-if="!$v.form.user.required">{{ $t('auth.validation.require') }}</span>
+        <div v-if="submitted && $v.form.username.$error" class="invalid-feedback">
+          <span v-if="!$v.form.username.required">{{ $t('auth.validation.require') }}</span>
         </div>
       </b-form-group>
       <b-form-group :label="$t('auth.emailInput')">
@@ -57,7 +57,7 @@ export default {
     return {
       submitted: false,
       form: {
-        user: null,
+        username: null,
         email: null,
         password: null
       }
@@ -67,9 +67,9 @@ export default {
     form: {
       password: {
         required,
-        minLength: minLength(4)
+        minLength: minLength(8)
       },
-      user: {
+      username: {
         required
       },
       email: {
@@ -79,14 +79,24 @@ export default {
     }
   },
   methods: {
-    onSubmit () {
+    async register () {
       this.submitted = true
       this.$v.form.$touch()
       if (this.$v.form.$anyError) {
         return
       }
+      try {
+        await this.$axios.post('/users', {
+          user: { ...this.form }
+        }).then((resp) => {
+          console.log(resp)
+          this.$auth.setUserToken(resp.data.user.token)
+        })
 
-      alert('Form submitted!')
+        this.$router.push('/')
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }
