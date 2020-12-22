@@ -9,7 +9,7 @@ export default {
       haveAccount: 'Don’t have account?',
       register: 'Register Now'
     },
-    Register: {
+    register: {
       title: 'Register',
       button: 'Register',
       haveAccount: 'Already Registered?',
