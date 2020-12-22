@@ -71,10 +71,10 @@ export default {
     async onSubmit () {
       this.submitted = true
       this.$v.form.$touch()
+      this.buttonLoading = true
       if (this.$v.form.$anyError) {
         return
       }
-      this.buttonLoading = true
       try {
         const response = await this.$auth.loginWith('local', {
           data:

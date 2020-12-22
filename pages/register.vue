@@ -60,7 +60,8 @@ export default {
         username: null,
         email: null,
         password: null
-      }
+      },
+      buttonLoading: false
     }
   },
   validations: {
@@ -81,6 +82,7 @@ export default {
   methods: {
     async register () {
       this.submitted = true
+      this.buttonLoading = true
       this.$v.form.$touch()
       if (this.$v.form.$anyError) {
         return
@@ -92,11 +94,15 @@ export default {
         if (response) {
           console.log(response)
           this.$auth.setUserToken(response.data.user.token)
+          this.buttonLoading = false
+
           this.$router.push('/')
         }
 
         this.$router.push('/')
       } catch (e) {
+        this.buttonLoading = false
+
         console.log(e)
       }
     }

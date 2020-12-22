@@ -6,17 +6,10 @@
     :variant="variant"
     :size="size"
     :block="block"
-    :class="[
-      { 'rounded-circle': round },
-      { 'btn-wd': wide },
-      { 'btn-icon btn-fab': icon },
-      { 'btn-link': link },
-      { disabled: disabled }
-    ]"
     @click="handleClick"
   >
     <slot name="loading">
-      <i v-if="loading" class="fas fa-spinner fa-spin" />
+      <b-spinner v-if="loading" small class="fas fa-spinner fa-spin" />
     </slot>
     <slot />
   </b-button>
