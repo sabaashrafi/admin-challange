@@ -84,7 +84,7 @@ export default {
    */
   auth: {
     redirect: {
-      login: '/auth/sign-in'
+      login: '/login'
     },
     strategies: {
       local: {

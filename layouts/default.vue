@@ -10,7 +10,8 @@ import Nav from '@/components/global/Nav'
 export default {
   components: {
     Nav
-  }
+  },
+  middleware: ['auth']
 }
 </script>
 <style>

@@ -85,7 +85,6 @@ export default {
         if (response) {
           console.log(response.data.user.token)
           this.buttonLoading = false
-
           this.$auth.setUserToken(response.data.user.token)
           this.$router.push('/')
         }
