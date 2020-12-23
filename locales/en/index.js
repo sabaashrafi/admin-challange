@@ -33,5 +33,18 @@ export default {
       first: 'All Articles',
       second: 'New Article'
     }
+  },
+  articles: {
+    table: ['Title', 'Author', 'Tags', 'Excerpt', 'Created']
+  },
+  create: {
+    title: 'New Article',
+    inputs: {
+      title: 'Title',
+      description: 'Description',
+      body: 'Body',
+      tags: 'Tags'
+    },
+    buttons: 'Submit'
   }
 }

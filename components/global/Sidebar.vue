@@ -15,7 +15,7 @@ export default {
     return {
       sideLinks: [
         { name: this.$t('sidebar.links.first'), link: '/article/page' },
-        { name: this.$t('sidebar.links.second'), link: '/article/new' }
+        { name: this.$t('sidebar.links.second'), link: '/article/create' }
       ]
     }
   }

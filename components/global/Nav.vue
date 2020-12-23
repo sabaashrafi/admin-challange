@@ -1,7 +1,7 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand href="#">
+    <b-navbar toggleable="lg" class="bg-dark" variant="info">
+      <b-navbar-brand href="#" class="text-white">
         {{ $t('navbar.title') }}
       </b-navbar-brand>
       <b-navbar-nav class="ml-auto mr-1">
