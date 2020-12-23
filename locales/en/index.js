@@ -20,5 +20,18 @@ export default {
       email: 'Email is invalid',
       minLength: 'password must be at least 4 characters.'
     }
+
+  },
+  navbar: {
+    title: 'Arvan Challenge',
+    welcome: 'Welcome {{ username }}',
+    logout: 'Logout'
+  },
+  sidebar: {
+    title: 'Posts',
+    links: {
+      first: 'All Articles',
+      second: 'New Article'
+    }
   }
 }
