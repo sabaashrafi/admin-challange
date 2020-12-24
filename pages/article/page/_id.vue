@@ -62,7 +62,7 @@ export default {
           label: this.$t('articles.table')[4]
         }
       ],
-      currentPage: 0,
+      currentPage: 1,
       perPage: 10,
       totalItems: 0,
       modalShow: false
@@ -71,27 +71,20 @@ export default {
   watch: {
     currentPage: {
       handler (value) {
-        this.fetchData().catch((error) => {
-          console.error(error)
-        })
+        this.getArticles()
       }
     }
   },
   mounted () {
-    this.fetchData().catch((error) => {
-      console.error(error)
-    })
+    this.getArticles()
   },
   methods: {
-    async fetchData () {
+    async getArticles () {
       const filters = {
         offset: (this.currentPage - 1) * this.perPage,
         limit: this.perPage
       }
-      const type = ''
-
-      this.items = await this.$ArticlesService.query(type, filters).then(items => items.articles)
-      this.tableBusy = false
+      this.items = await this.$ArticlesService.query(filters).then(items => items.articles).finally(() => { this.tableBusy = false })
     },
     linkGen (pageNum) {
       this.tableBusy = true

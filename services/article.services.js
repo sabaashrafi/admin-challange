@@ -7,8 +7,8 @@ export default function ({ app }, inject) {
 }
 
  const ArticlesService = {
-  query (type, params) {
-    return _this.$ApiService.query('articles' + (type === 'feed' ? '/feed' : ''), {
+  query (params) {
+    return _this.$ApiService.query('articles' , {
       params
     })
   },

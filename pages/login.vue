@@ -95,11 +95,11 @@ export default {
             user: { ...this.form }
           }
         }).then((response) => {
-          console.log(response.data.user.token)
-          this.buttonLoading = false
           this.$auth.setUser(response.data.user)
           this.$auth.setUserToken(response.data.user.token)
           this.$router.push('/article')
+        }).finally(() => {
+          this.buttonLoading = false
         })
       } catch (error) {
         console.log(error)
