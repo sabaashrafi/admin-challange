@@ -12,7 +12,7 @@
         {{ ((data.index )+( (currentPage-1)*10))+ 1 }}
       </template>
       <template #cell(createdAt)="data">
-        {{ correctDate(data.createdAt) }}
+        {{ $moment(data.createdAt).format("MMM D YYYY") }}
       </template>
       <template #table-busy>
         <div class="text-center text-danger my-2">
