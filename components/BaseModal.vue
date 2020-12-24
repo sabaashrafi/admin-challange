@@ -41,6 +41,7 @@
   </b-modal>
 </template>
 <script>
+// Base modal component
 export default {
   name: 'BaseModal',
   props: {

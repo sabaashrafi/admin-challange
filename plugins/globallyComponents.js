@@ -1,3 +1,4 @@
+// add globally important component
 import Vue from 'vue'
 import BaseButton from '../components/BaseButton'
 import ArticleTable from '../components/ArticleTable'

@@ -1,9 +1,14 @@
 <template>
   <div class="login-box p-3 pt-4">
+    <!-- title of page -->
     <h1 class="warm-grey text-center mb-4">
       {{ $t("auth.login.title") }}
     </h1>
+    <!-- End title of page -->
+
+    <!-- form for login -->
     <b-form @submit.stop.prevent="onSubmit" @keydown.enter="onSubmit">
+      <!-- email form group with validation on email adrress and required -->
       <b-form-group :label="$t('auth.emailInput')">
         <b-form-input
           v-model="$v.form.email.$model"
@@ -20,6 +25,9 @@
           }}</span>
         </div>
       </b-form-group>
+      <!-- End email form group -->
+
+      <!-- password form group with validation on length  and required-->
       <b-form-group :label="$t('auth.passwordInput')">
         <b-form-input
           v-model="$v.form.password.$model"
@@ -36,7 +44,9 @@
           }}</span>
         </div>
       </b-form-group>
+      <!-- End password form group -->
 
+      <!-- submit button -->
       <BaseButton
         :loading="buttonLoading"
         block
@@ -46,17 +56,21 @@
         {{ $t("auth.login.button") }}
       </BaseButton>
     </b-form>
+    <!-- End form -->
+
+    <!-- text for switch to register page -->
     <p class="mt-2">
       {{ $t("auth.login.haveAccount") }}
       <nuxt-link class="text-dark font-weight-bold" to="/register">
         {{ $t("auth.login.register") }}
       </nuxt-link>
     </p>
+    <!-- End text  -->
   </div>
 </template>
 <script>
 import { required, email, minLength } from 'vuelidate/lib/validators'
-
+// Login page, login with Email and password
 export default {
   layout: 'authLayout',
   data () {
@@ -69,12 +83,16 @@ export default {
       }
     }
   },
+  // @vuese
+  // Validation on form for password and email
   validations: {
     form: {
+      // password validation
       password: {
         required,
         minLength: minLength(8)
       },
+      // email validation
       email: {
         required,
         email
@@ -82,10 +100,13 @@ export default {
     }
   },
   methods: {
+  // @vuese
+  // Submit form with login function on auth madule
     async onSubmit () {
       this.submitted = true
       this.$v.form.$touch()
       this.buttonLoading = true
+      // Check validation
       if (this.$v.form.$anyError) {
         return
       }
@@ -95,9 +116,11 @@ export default {
           user: { ...this.form }
         }
       }).then((response) => {
+        // Set user and token manually
         this.$auth.setUserToken(response.data.user.token)
         this.$auth.setUser(response.data.user)
 
+        // Push to article page
         this.$router.push('/article')
       }).finally(() => {
         this.buttonLoading = false

@@ -1,20 +1,30 @@
+/**
+ * @group i18n
+ * Set words here for have better code and bilingual website
+ */
 export default {
+  /*
+  * auth pages
+  */
   auth: {
     emailInput: 'Email',
     passwordInput: 'Password',
     userInput: 'User',
+    // login page
     login: {
       title: 'LOGIN',
       button: 'Login',
       haveAccount: 'Don’t have account?',
       register: 'Register Now'
     },
+    // register page
     register: {
       title: 'Register',
       button: 'Register',
       haveAccount: 'Already Registered?',
       login: 'Login'
     },
+    // validation errors
     validation: {
       require: 'Required field',
       email: 'Email is invalid',
@@ -22,11 +32,17 @@ export default {
     }
 
   },
+  /*
+  * navbar words
+  */
   navbar: {
     title: 'Arvan Challenge',
     welcome: 'Welcome',
     logout: 'Logout'
   },
+  /*
+  * sidebar words
+  */
   sidebar: {
     title: 'Posts',
     links: {
@@ -34,6 +50,9 @@ export default {
       second: 'New Article'
     }
   },
+  /*
+  * article pages words
+  */
   articles: {
     table: ['Title', 'Author', 'Tags', 'Excerpt', 'Created'],
     dropDown: {
@@ -42,6 +61,9 @@ export default {
     },
     loading: 'Loading...'
   },
+  /*
+  * create article pages words
+  */
   create: {
     title: 'New Article',
     inputs: {
@@ -52,13 +74,22 @@ export default {
     },
     button: 'Submit'
   },
+  /*
+  * delete article pages words
+  */
   delete: {
     title: 'Delete Article',
     text: 'Are you sure to delete Article?'
   },
+  /*
+  * edit pages words
+  */
   edit: {
     title: 'Edit Article'
   },
+  /*
+  * general words
+  */
   yes: 'Yes',
   no: 'No'
 }

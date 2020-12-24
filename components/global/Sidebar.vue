@@ -16,6 +16,7 @@
   </div>
 </template>
 <script>
+// Sidebar component
 export default {
   name: 'Sidebar',
   data () {

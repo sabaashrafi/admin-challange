@@ -3,7 +3,9 @@
     <b-navbar toggleable="lg" class="bg-dark">
       <b-navbar-nav>
         <b-nav-item>
-          <h4 class="text-white">{{ $t('navbar.title') }}</h4>
+          <h4 class="text-white">
+            {{ $t('navbar.title') }}
+          </h4>
         </b-nav-item>
         <b-nav-item>
           <p class="text-white mb-0">
@@ -19,6 +21,7 @@
         </b-nav-item>
       </b-navbar-nav>
       <b-navbar-toggle target="nav-collapse" />
+      <!-- for md to down size -->
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class=" d-md-none d-block">
           <b-nav-item v-for="(item,index) in collaps" :key="index" href="#" :to="item.link">
@@ -32,6 +35,7 @@
   </div>
 </template>
 <script>
+// Navbar component
 export default {
   data () {
     return {
@@ -42,6 +46,8 @@ export default {
     }
   },
   methods: {
+    // @vuese
+    // logout
     async logout () {
       await this.$auth.logout()
     }

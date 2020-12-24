@@ -1,5 +1,7 @@
 # BaseButton
 
+Base button component
+
 ## Props
 
 <!-- @vuese:BaseButton:props:start -->
@@ -36,7 +38,7 @@
 <!-- @vuese:BaseButton:slots:start -->
 |Name|Description|Default Slot Content|
 |---|---|---|
-|loading|-|-|
+|loading|-|spinner loadin|
 |default|-|-|
 
 <!-- @vuese:BaseButton:slots:end -->

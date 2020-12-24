@@ -1,13 +1,16 @@
-/* eslint-disable */ 
-var _this
+/* eslint-disable */
 
-export default function ({ app }, inject) {
-  _this = app
-  inject('TagsService', TagsService)
+var _this;
+
+export default function({ app }, inject) {
+  _this = app;
+  inject("TagsService", TagsService);
 }
 const TagsService = {
-    get() {
-      return _this.$ApiService.get("tags");
-    }
-  };
- 
+  /*
+   * Get all tags
+   */
+  get() {
+    return _this.$ApiService.get("tags");
+  }
+};

@@ -9,12 +9,14 @@
     @click="handleClick"
   >
     <slot name="loading">
+      <!-- spinner loadin -->
       <b-spinner v-if="loading" small class="fas fa-spinner fa-spin" />
     </slot>
     <slot />
   </b-button>
 </template>
 <script>
+// Base button component
 export default {
   name: 'BaseButton',
   props: {

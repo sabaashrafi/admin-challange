@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-
+    <b-button to="/article"> go to article page </b-button>
   </div>
 </template>
 

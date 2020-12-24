@@ -10,9 +10,7 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
   router: {
     extendRoutes (routes, resolve) {
@@ -22,7 +20,6 @@ export default {
         component: resolve(__dirname, 'pages/article/page/_id.vue')
       })
     }
-
   },
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: ['~/assets/scss/main.scss'],
@@ -30,10 +27,18 @@ export default {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000'
   },
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: ['~/mixins/index',
-  // add globally component
+  plugins: [
+    // add globally important mixins
+    '~/mixins/index',
+    // add globally component
     '~/plugins/globallyComponents',
-    '~/utils/api', '~/services/article.services', '~/services/tags.services'],
+    // add api services
+    '~/utils/api',
+
+    // register services
+    '~/services/article.services',
+    '~/services/tags.services'
+  ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -42,6 +47,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
+    // https://www.npmjs.com/package/@nuxtjs/moment
     '@nuxtjs/moment'
   ],
 
@@ -53,9 +59,10 @@ export default {
     '@nuxtjs/axios',
     // https://i18n.nuxtjs.org/
     'nuxt-i18n',
+    // https://auth.nuxtjs.org/
     '@nuxtjs/auth',
+    // https://www.npmjs.com/package/@nuxtjs/style-resources
     '@nuxtjs/style-resources'
-
   ],
 
   /**
@@ -119,6 +126,5 @@ export default {
     }
   },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {
-  }
+  build: {}
 }
