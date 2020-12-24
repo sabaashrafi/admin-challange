@@ -46,5 +46,11 @@ export default {
       tags: 'Tags'
     },
     button: 'Submit'
-  }
+  },
+  delete: {
+    title: 'Delete Article',
+    text: 'Are you sure to delete Article?'
+  },
+  yes: 'Yes',
+  no: 'No'
 }

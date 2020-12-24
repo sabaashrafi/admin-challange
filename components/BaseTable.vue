@@ -55,7 +55,7 @@ export default {
       console.log(data)
     },
     deleteArticle (item) {
-      console.log(item)
+      this.$emit('deleteArticle', item)
     }
   }
 }

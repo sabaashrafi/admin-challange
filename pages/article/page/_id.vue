@@ -7,9 +7,27 @@
       :fields="fields"
       :current-page="currentPage"
       :per-page="0"
+      @deleteArticle="ShowdeleteModal($event)"
     />
-    <!-- <b-pagination v-model="currentPage" size="md" :total-rows="totalItems" :per-page="perPage" /> -->
     <b-pagination-nav v-model="currentPage" :link-gen="linkGen" :number-of-pages="10" />
+    <BaseModal :show="modalShow" @close="modalShow=false">
+      <template #header>
+        <h5>
+          {{ $t('delete.title') }}
+        </h5>
+      </template>
+      <template>
+        <p> {{ $t('delete.title') }}</p>
+      </template>
+      <template #footer>
+        <b-button variant="light">
+          {{ $t('no') }}
+        </b-button>
+        <b-button variant="danger" @click="deleteArticle">
+          {{ $t('yes') }}
+        </b-button>
+      </template>
+    </BaseModal>
   </div>
 </template>
 <script>
@@ -46,7 +64,8 @@ export default {
       ],
       currentPage: 0,
       perPage: 10,
-      totalItems: 0
+      totalItems: 0,
+      modalShow: false
     }
   },
   watch: {
@@ -78,6 +97,16 @@ export default {
       this.tableBusy = true
 
       return pageNum === 1 ? { path: '/article' } : { path: `/article/page/${pageNum}` }
+    },
+    ShowdeleteModal (item) {
+      this.$store.commit('setSelectedArticle', item.item)
+      this.modalShow = true
+    },
+    async deleteArticle (item) {
+      const slug = this.$store.getters.getSelectedArticle.slug
+      await this.$ArticlesService.destroy(slug).then(resp => console.log(resp))
+
+      this.modalShow = false
     }
   }
 }
