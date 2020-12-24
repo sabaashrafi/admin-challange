@@ -65,16 +65,25 @@ export default {
   },
   methods: {
     async fetchData () {
-      this.items = await fetch(`https://conduit.productionready.io/api/articles?offset=${(this.currentPage - 1) * 10}&limit=10`)
-        .then((res) => {
-          this.totalItems = parseInt(res.headers.get('x-total-count'), 10)
-          this.tableBusy = false
+      const filters = {
+        offset: (this.currentPage - 1) * this.perPage,
+        limit: this.perPage
+      }
+      const type = ''
 
-          return res.json()
-        })
-        .then(items =>
-          items.articles
-        )
+      const resp = await this.$ArticlesService.query(type, filters)
+      if (resp) {
+        this.tableBusy = false
+        this.items = resp.articles
+      }
+      // this.items = await fetch(`https://conduit.productionready.io/api/articles?offset=${(this.currentPage - 1) * 10}&limit=10`)
+      // .then((res) => {
+
+      //   return res.json()
+      // })
+      // .then(items =>
+      //   items.articles
+      // )
     },
     linkGen (pageNum) {
       this.tableBusy = true

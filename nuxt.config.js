@@ -32,8 +32,8 @@ export default {
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: ['~/mixins/index',
   // add globally component
-    '~/plugins/globallyComponents'
-  ],
+    '~/plugins/globallyComponents',
+    '~/utils/api', '~/services/article.services'],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,

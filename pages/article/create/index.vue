@@ -8,55 +8,66 @@
         <b-col md="9">
           <b-form-group :label="$t('create.inputs.title')">
             <b-form-input
-              v-model="form.password"
+              v-model="$v.form.title.$model"
               name="title"
+              :state="validateState('title')"
             />
-            <div v-if="submitted && $v.required.$error" class="invalid-feedback">
-              <span v-if="!$v.required.required">{{ $t('auth.validation.require') }}</span>
+            <div v-if="submitted && $v.form.title.$error" class="invalid-feedback">
+              <span v-if="!$v.form.title.required">{{ $t('auth.validation.require') }}</span>
             </div>
           </b-form-group>
           <b-form-group :label="$t('create.inputs.description')">
             <b-form-input
-              v-model="form.password"
+              v-model="$v.form.description.$model"
               name="description"
-              :state="validateState('required')"
+              :state="validateState('description')"
             />
-            <div v-if="submitted && $v.required.$error" class="invalid-feedback">
-              <span v-if="!$v.required.required">{{ $t('auth.validation.require') }}</span>
+            <div v-if="submitted && $v.form.description.$error" class="invalid-feedback">
+              <span v-if="!$v.form.description.required">{{ $t('auth.validation.require') }}</span>
             </div>
           </b-form-group>
-          <b-form-group :label="$t('create.inputs.')">
-            <b-form-input
-              v-model="form.password"
-              name="password"
-              type="password"
-              :state="validateState('required')"
+          <b-form-group :label="$t('create.inputs.body')">
+            <b-form-textarea
+              v-model="$v.form.body.$model"
+              name="body"
+              rows="8"
+              :state="validateState('body')"
             />
-            <div v-if="submitted && $v.required.$error" class="invalid-feedback">
-              <span v-if="!$v.required.required">{{ $t('auth.validation.require') }}</span>
+            <div v-if="submitted && $v.form.body.$error" class="invalid-feedback">
+              <span v-if="!$v.form.body.required">{{ $t('auth.validation.require') }}</span>
             </div>
           </b-form-group>
         </b-col>
         <b-col md="3">
-          <b-form-group :label="$t('create.inputs')">
+          <b-form-group :label="$t('create.inputs.tags')">
             <b-form-input
-              v-model="form.password"
-              name="password"
-              type="password"
+              v-model="form.tagList"
+              name="tagList"
+            />
+          </b-form-group>
+          <b-form-group
+            v-slot="{ ariaDescribedby }"
+            label="Form-checkbox-group stacked checkboxes"
+          >
+            <b-form-checkbox-group
+              v-model="form.body"
+              :options="form.tagList"
+              :aria-describedby="ariaDescribedby"
+              name="flavour-2a"
+              stacked
             />
           </b-form-group>
         </b-col>
       </b-row>
 
       <BaseButton :loading="buttonLoading" :native-type="'submit'" :variant="'primary'">
-        {{ $t('create.login.button') }}
+        {{ $t('create.create.button') }}
       </BaseButton>
     </b-form>
   </div>
 </template>
 <script>
-import { required } from 'vuelidate/lib/validators'
-
+import { required, minLength } from 'vuelidate/lib/validators'
 export default {
   data () {
     return {
@@ -65,12 +76,23 @@ export default {
       form: {
         title: null,
         description: null,
-        password: null
+        body: null,
+        tagList: null
       }
     }
   },
+  mounted () {
+    console.log(this.$ArticlesService.query())
+  },
   validations: {
-    required: { required }
+    form: {
+      title: { required },
+      description: { required },
+      body: {
+        required,
+        minLength: minLength(10)
+      }
+    }
   },
   methods: {
     async onSubmit () {
