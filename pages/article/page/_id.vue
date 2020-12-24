@@ -1,6 +1,13 @@
 <template>
   <div>
-    <b-table show-empty :items="items" :fields="fields" :current-page="currentPage" :per-page="0" />
+    <BaseTable
+      show-empty
+      :loading="tableBusy"
+      :items="items"
+      :fields="fields"
+      :current-page="currentPage"
+      :per-page="0"
+    />
     <!-- <b-pagination v-model="currentPage" size="md" :total-rows="totalItems" :per-page="perPage" /> -->
     <b-pagination-nav v-model="currentPage" :link-gen="linkGen" :number-of-pages="10" />
   </div>
@@ -10,8 +17,12 @@ export default {
   data () {
     return {
       items: [],
+      tableBusy: false,
       fields: [
-
+        {
+          key: 'index',
+          label: '#'
+        },
         {
           key: 'title',
           label: this.$t('articles.table')[0]
@@ -29,7 +40,7 @@ export default {
           label: this.$t('articles.table')[3]
         },
         {
-          key: 'title',
+          key: 'createdAt',
           label: this.$t('articles.table')[4]
         }
       ],
@@ -54,15 +65,20 @@ export default {
   },
   methods: {
     async fetchData () {
-      this.items = await fetch(`https://conduit.productionready.io/api/articles?offset=${this.currentPage * 10}&limit=10`)
+      this.items = await fetch(`https://conduit.productionready.io/api/articles?offset=${(this.currentPage - 1) * 10}&limit=10`)
         .then((res) => {
           this.totalItems = parseInt(res.headers.get('x-total-count'), 10)
+          this.tableBusy = false
 
           return res.json()
         })
-        .then(items => items.articles)
+        .then(items =>
+          items.articles
+        )
     },
     linkGen (pageNum) {
+      this.tableBusy = true
+
       return pageNum === 1 ? { path: '/article' } : { path: `/article/page/${pageNum}` }
     }
   }
