@@ -57,9 +57,6 @@ export default {
     '@nuxtjs/style-resources'
 
   ],
-  /**
-   * moment config
-   */
 
   /**
    * i18n config
@@ -102,13 +99,14 @@ export default {
     },
     strategies: {
       local: {
+        tokenType: 'Token',
+
         endpoints: {
           login: {
             url: '/users/login',
-            method: 'post',
-            propertyName: 'bearerToken'
+            method: 'post'
           },
-          user: { url: '/user', method: 'get', propertyName: false }
+          user: false
         }
       }
     }

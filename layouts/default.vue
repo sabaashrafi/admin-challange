@@ -20,8 +20,8 @@ export default {
   components: {
     Nav,
     Sidebar
-  }
-  // middleware: ['auth']
+  },
+  middleware: ['auth']
 }
 </script>
 <style>

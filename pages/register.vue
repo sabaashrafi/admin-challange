@@ -93,10 +93,11 @@ export default {
         })
         if (response) {
           console.log(response)
+          this.$auth.setUser(response.data.user)
           this.$auth.setUserToken(response.data.user.token)
           this.buttonLoading = false
 
-          this.$router.push('/')
+          this.$router.push('/article')
         }
 
         this.$router.push('/')

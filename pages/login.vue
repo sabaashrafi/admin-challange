@@ -1,7 +1,7 @@
 <template>
   <div class="login-box p-3 pt-4">
     <h1 class="warm-grey text-center mb-4">
-      {{ $t('auth.login.title') }}
+      {{ $t("auth.login.title") }}
     </h1>
     <b-form @submit.stop.prevent="onSubmit" @keydown.enter="onSubmit">
       <b-form-group :label="$t('auth.emailInput')">
@@ -12,8 +12,12 @@
           :state="validateState('email')"
         />
         <div v-if="submitted && $v.form.email.$error" class="invalid-feedback">
-          <span v-if="!$v.form.email.required">{{ $t('auth.validation.require') }}</span>
-          <span v-if="!$v.form.email.email">{{ $t('auth.validation.email') }}</span>
+          <span v-if="!$v.form.email.required">{{
+            $t("auth.validation.require")
+          }}</span>
+          <span v-if="!$v.form.email.email">{{
+            $t("auth.validation.email")
+          }}</span>
         </div>
       </b-form-group>
       <b-form-group :label="$t('auth.passwordInput')">
@@ -23,18 +27,29 @@
           type="password"
           :state="validateState('password')"
         />
-        <div v-if="submitted && $v.form.password.$error" class="invalid-feedback">
-          <span v-if="!$v.form.password.required">{{ $t('auth.validation.require') }}</span>
+        <div
+          v-if="submitted && $v.form.password.$error"
+          class="invalid-feedback"
+        >
+          <span v-if="!$v.form.password.required">{{
+            $t("auth.validation.require")
+          }}</span>
         </div>
       </b-form-group>
 
-      <BaseButton :loading="buttonLoading" block :native-type="'submit'" :variant="'primary'">
-        {{ $t('auth.login.button') }}
+      <BaseButton
+        :loading="buttonLoading"
+        block
+        :native-type="'submit'"
+        :variant="'primary'"
+      >
+        {{ $t("auth.login.button") }}
       </BaseButton>
     </b-form>
     <p class="mt-2">
-      {{ $t('auth.login.haveAccount') }} <nuxt-link to="/register">
-        {{ $t('auth.login.register') }}
+      {{ $t("auth.login.haveAccount") }}
+      <nuxt-link class="text-dark font-weight-bold" to="/register">
+        {{ $t("auth.login.register") }}
       </nuxt-link>
     </p>
   </div>
@@ -59,7 +74,6 @@ export default {
       password: {
         required,
         minLength: minLength(8)
-
       },
       email: {
         required,
@@ -76,18 +90,17 @@ export default {
         return
       }
       try {
-        const response = await this.$auth.loginWith('local', {
-          data:
-   {
-     user: { ...this.form }
-   }
-        })
-        if (response) {
+        await this.$auth.loginWith('local', {
+          data: {
+            user: { ...this.form }
+          }
+        }).then((response) => {
           console.log(response.data.user.token)
           this.buttonLoading = false
+          this.$auth.setUser(response.data.user)
           this.$auth.setUserToken(response.data.user.token)
-          this.$router.push('/')
-        }
+          this.$router.push('/article')
+        })
       } catch (error) {
         console.log(error)
       }
@@ -96,7 +109,7 @@ export default {
 }
 </script>
 <style lang="scss">
-.login-box{
-  background-color:$bg-gray;
+.login-box {
+  background-color: $bg-gray;
 }
 </style>
