@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BaseTable
+    <ArticleTable
       show-empty
       :loading="tableBusy"
       :items="items"
@@ -9,7 +9,7 @@
       :per-page="0"
       @deleteArticle="ShowdeleteModal($event)"
     />
-    <b-pagination-nav v-model="currentPage" :link-gen="linkGen" :number-of-pages="10" />
+    <b-pagination-nav v-model="currentPage" align="center" :link-gen="linkGen" :number-of-pages="10" />
     <BaseModal :show="modalShow" @close="modalShow=false">
       <template #header>
         <h5>

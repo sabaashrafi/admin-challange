@@ -23,19 +23,19 @@
       </template>
       <template #cell(createdAt)="data">
         {{ $moment(data.createdAt).format("MMM D YYYY") }}
-        <b-dropdown text="...">
+        <b-dropdown variant="primary" text="...">
           <b-dropdown-item @click="editArticle(data)">
-            edit
+            {{ $t('articles.dropDown.edit') }}
           </b-dropdown-item>
           <b-dropdown-item @click="deleteArticle(data)">
-            delet
+            {{ $t('articles.dropDown.delete') }}
           </b-dropdown-item>
         </b-dropdown>
       </template>
       <template #table-busy>
-        <div class="text-center text-danger my-2">
+        <div class="text-center text-primary my-2">
           <b-spinner class="align-middle" />
-          <strong>Loading...</strong>
+          <strong>{{ $t('articles.loading') }}</strong>
         </div>
       </template>
     </b-table>
@@ -61,3 +61,10 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+
+.btn-primary{
+  background-color: $secondary !important;
+  border-color: $secondary !important;
+}
+</style>

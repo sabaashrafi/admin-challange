@@ -24,7 +24,7 @@ export default {
   },
   navbar: {
     title: 'Arvan Challenge',
-    welcome: 'Welcome {{ username }}',
+    welcome: 'Welcome',
     logout: 'Logout'
   },
   sidebar: {
@@ -35,7 +35,12 @@ export default {
     }
   },
   articles: {
-    table: ['Title', 'Author', 'Tags', 'Excerpt', 'Created']
+    table: ['Title', 'Author', 'Tags', 'Excerpt', 'Created'],
+    dropDown: {
+      edit: 'edit',
+      delete: 'delete'
+    },
+    loading: 'Loading...'
   },
   create: {
     title: 'New Article',

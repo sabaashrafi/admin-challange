@@ -116,16 +116,19 @@ export default {
   methods: {
     async submit () {
       this.submitted = true
-
       this.$v.form.$touch()
       if (this.$v.form.$anyError) {
         return
       }
       this.buttonLoading = true
       if (this.mode === 'edit') {
-        await this.$ArticlesService.update(this.form).then(resp => console.log(resp))
+        await this.$ArticlesService.update(this.form).then((resp) => { this.$router.push('/article') }).finally(() => {
+          this.buttonLoading = true
+        })
       } else {
-        await this.$ArticlesService.create(this.form).then(resp => console.log(resp))
+        await this.$ArticlesService.create(this.form).then((resp) => { this.$router.push('/article') }).finally(() => {
+          this.buttonLoading = true
+        })
       }
     },
     async getAllTag () {
