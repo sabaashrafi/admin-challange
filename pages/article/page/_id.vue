@@ -99,11 +99,11 @@ export default {
       return pageNum === 1 ? { path: '/article' } : { path: `/article/page/${pageNum}` }
     },
     ShowdeleteModal (item) {
-      this.$store.commit('setSelectedArticle', item.item)
+      this.$store.commit('setDeleteArticle', item.item)
       this.modalShow = true
     },
     async deleteArticle (item) {
-      const slug = this.$store.getters.getSelectedArticle.slug
+      const slug = this.$store.getters.getDeleteArticle.slug
       await this.$ArticlesService.destroy(slug).then(resp => console.log(resp))
 
       this.modalShow = false

@@ -24,7 +24,7 @@
       <template #cell(createdAt)="data">
         {{ $moment(data.createdAt).format("MMM D YYYY") }}
         <b-dropdown text="...">
-          <b-dropdown-item to="/article/create">
+          <b-dropdown-item @click="editArticle(data)">
             edit
           </b-dropdown-item>
           <b-dropdown-item @click="deleteArticle(data)">
@@ -51,11 +51,12 @@ export default {
     perPage: { type: Number, default: 0 }
   },
   methods: {
-    clg (data) {
-      console.log(data)
-    },
     deleteArticle (item) {
       this.$emit('deleteArticle', item)
+    },
+    editArticle (item) {
+      this.$store.commit('setEditArticle', item.item)
+      this.$router.push({ path: '/article/create', query: { slug: item.item.slug } })
     }
   }
 }

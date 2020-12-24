@@ -51,6 +51,9 @@ export default {
     title: 'Delete Article',
     text: 'Are you sure to delete Article?'
   },
+  edit: {
+    title: 'Edit Article'
+  },
   yes: 'Yes',
   no: 'No'
 }

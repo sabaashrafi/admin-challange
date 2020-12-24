@@ -1,15 +1,20 @@
 
 export const state = () => ({
   Articels: [],
-  selectedArticle: {}
+  editSelectedArticle: {},
+  deleteSelectedArticle: {}
 
 })
 export const mutations = {
-  setSelectedArticle: (state, article) => {
-    state.selectedArticle = article
+  setEditArticle: (state, article) => {
+    state.editSelectedArticle = article
+  },
+  setDeleteArticle: (state, article) => {
+    state.deleteSelectedArticle = article
   }
 
 }
 export const getters = {
-  getSelectedArticle: state => ({ slug: state.selectedArticle.slug })
+  getEditArticle: state => ({ item: state.editSelectedArticle, slug: state.editSelectedArticle.slug }),
+  getDeleteArticle: state => ({ item: state.deleteSelectedArticle, slug: state.deleteSelectedArticle.slug })
 }

@@ -1,9 +1,12 @@
 <template>
   <div>
-    <h1 class="warm-grey text-center mb-4">
+    <h1 v-if="mode == 'edit'" class="warm-grey text-center mb-4">
+      {{ $t("edit.title") }}
+    </h1>
+    <h1 v-else class="warm-grey text-center mb-4">
       {{ $t("create.title") }}
     </h1>
-    <b-form @submit.stop.prevent="createArticle" @keydown.enter="createArticle">
+    <b-form @submit.stop.prevent="submit" @keydown.enter="submit">
       <b-row>
         <b-col md="9">
           <b-form-group :label="$t('create.inputs.title')">
@@ -92,10 +95,12 @@ export default {
         body: null,
         tagList: []
       },
-      tagsList: []
+      tagsList: [],
+      mode: null
     }
   },
   mounted () {
+    this.findMode()
     this.getAllTag()
   },
   validations: {
@@ -109,7 +114,7 @@ export default {
     }
   },
   methods: {
-    async createArticle () {
+    async submit () {
       this.submitted = true
 
       this.$v.form.$touch()
@@ -117,7 +122,11 @@ export default {
         return
       }
       this.buttonLoading = true
-      await this.$ArticlesService.create(this.form).then(resp => console.log(resp))
+      if (this.mode === 'edit') {
+        await this.$ArticlesService.update(this.form).then(resp => console.log(resp))
+      } else {
+        await this.$ArticlesService.create(this.form).then(resp => console.log(resp))
+      }
     },
     async getAllTag () {
       this.tagsList = await this.$TagsService.get().then(tagsList => tagsList.tags.sort())
@@ -126,6 +135,18 @@ export default {
     addNewTag () {
       this.tagsList.push(this.newTag)
       this.form.tagList.push(this.newTag)
+    },
+    async findMode () {
+      if (this.$route.query.slug) {
+        this.mode = 'edit'
+        const item = this.$store.getters.getEditArticle.item
+        if (item.slug) {
+          this.form = item
+        } else {
+          const slug = this.$route.query.slug
+          this.form = await this.$ArticlesService.get(slug).then(item => item.article)
+        }
+      }
     }
   }
 }
