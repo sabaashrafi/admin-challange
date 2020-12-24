@@ -13,7 +13,6 @@ export default function ({ app }, inject) {
     })
   },
   get (slug) {
-    console.log(_this)
     return _this.$ApiService.get('articles', slug)
   },
   create (params) {

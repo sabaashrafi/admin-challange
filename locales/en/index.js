@@ -45,6 +45,6 @@ export default {
       body: 'Body',
       tags: 'Tags'
     },
-    buttons: 'Submit'
+    button: 'Submit'
   }
 }

@@ -33,7 +33,7 @@ export default {
   plugins: ['~/mixins/index',
   // add globally component
     '~/plugins/globallyComponents',
-    '~/utils/api', '~/services/article.services'],
+    '~/utils/api', '~/services/article.services', '~/services/tags.services'],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,

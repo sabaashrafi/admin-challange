@@ -71,19 +71,8 @@ export default {
       }
       const type = ''
 
-      const resp = await this.$ArticlesService.query(type, filters)
-      if (resp) {
-        this.tableBusy = false
-        this.items = resp.articles
-      }
-      // this.items = await fetch(`https://conduit.productionready.io/api/articles?offset=${(this.currentPage - 1) * 10}&limit=10`)
-      // .then((res) => {
-
-      //   return res.json()
-      // })
-      // .then(items =>
-      //   items.articles
-      // )
+      this.items = await this.$ArticlesService.query(type, filters).then(items => items.articles)
+      this.tableBusy = false
     },
     linkGen (pageNum) {
       this.tableBusy = true

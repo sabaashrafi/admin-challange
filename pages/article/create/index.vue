@@ -1,9 +1,9 @@
 <template>
   <div>
     <h1 class="warm-grey text-center mb-4">
-      {{ $t('create.title') }}
+      {{ $t("create.title") }}
     </h1>
-    <b-form @submit.stop.prevent="onSubmit" @keydown.enter="onSubmit">
+    <b-form @submit.stop.prevent="createArticle" @keydown.enter="createArticle">
       <b-row>
         <b-col md="9">
           <b-form-group :label="$t('create.inputs.title')">
@@ -12,8 +12,13 @@
               name="title"
               :state="validateState('title')"
             />
-            <div v-if="submitted && $v.form.title.$error" class="invalid-feedback">
-              <span v-if="!$v.form.title.required">{{ $t('auth.validation.require') }}</span>
+            <div
+              v-if="submitted && $v.form.title.$error"
+              class="invalid-feedback"
+            >
+              <span v-if="!$v.form.title.required">{{
+                $t("auth.validation.require")
+              }}</span>
             </div>
           </b-form-group>
           <b-form-group :label="$t('create.inputs.description')">
@@ -22,8 +27,13 @@
               name="description"
               :state="validateState('description')"
             />
-            <div v-if="submitted && $v.form.description.$error" class="invalid-feedback">
-              <span v-if="!$v.form.description.required">{{ $t('auth.validation.require') }}</span>
+            <div
+              v-if="submitted && $v.form.description.$error"
+              class="invalid-feedback"
+            >
+              <span v-if="!$v.form.description.required">{{
+                $t("auth.validation.require")
+              }}</span>
             </div>
           </b-form-group>
           <b-form-group :label="$t('create.inputs.body')">
@@ -33,26 +43,24 @@
               rows="8"
               :state="validateState('body')"
             />
-            <div v-if="submitted && $v.form.body.$error" class="invalid-feedback">
-              <span v-if="!$v.form.body.required">{{ $t('auth.validation.require') }}</span>
+            <div
+              v-if="submitted && $v.form.body.$error"
+              class="invalid-feedback"
+            >
+              <span v-if="!$v.form.body.required">{{
+                $t("auth.validation.require")
+              }}</span>
             </div>
           </b-form-group>
         </b-col>
         <b-col md="3">
           <b-form-group :label="$t('create.inputs.tags')">
-            <b-form-input
-              v-model="form.tagList"
-              name="tagList"
-            />
+            <b-form-input v-model="newTag" name="tagList" @change="addNewTag" />
           </b-form-group>
-          <b-form-group
-            v-slot="{ ariaDescribedby }"
-            label="Form-checkbox-group stacked checkboxes"
-          >
+          <b-form-group>
             <b-form-checkbox-group
-              v-model="form.body"
-              :options="form.tagList"
-              :aria-describedby="ariaDescribedby"
+              v-model="form.tagList"
+              :options="tagsList"
               name="flavour-2a"
               stacked
             />
@@ -60,8 +68,12 @@
         </b-col>
       </b-row>
 
-      <BaseButton :loading="buttonLoading" :native-type="'submit'" :variant="'primary'">
-        {{ $t('create.create.button') }}
+      <BaseButton
+        :loading="buttonLoading"
+        :native-type="'submit'"
+        :variant="'primary'"
+      >
+        {{ $t("create.button") }}
       </BaseButton>
     </b-form>
   </div>
@@ -73,16 +85,18 @@ export default {
     return {
       submitted: false,
       buttonLoading: false,
+      newTag: null,
       form: {
         title: null,
         description: null,
         body: null,
-        tagList: null
-      }
+        tagList: []
+      },
+      tagsList: []
     }
   },
   mounted () {
-    console.log(this.$ArticlesService.query())
+    this.getAllTag()
   },
   validations: {
     form: {
@@ -95,35 +109,29 @@ export default {
     }
   },
   methods: {
-    async onSubmit () {
+    async createArticle () {
       this.submitted = true
+
       this.$v.form.$touch()
-      this.buttonLoading = true
       if (this.$v.form.$anyError) {
         return
       }
-      try {
-        const response = await this.$auth.loginWith('local', {
-          data:
-   {
-     user: { ...this.form }
-   }
-        })
-        if (response) {
-          console.log(response.data.user.token)
-          this.buttonLoading = false
-          this.$auth.setUserToken(response.data.user.token)
-          this.$router.push('/')
-        }
-      } catch (error) {
-        console.log(error)
-      }
+      this.buttonLoading = true
+      await this.$ArticlesService.create(this.form).then(resp => console.log(resp))
+    },
+    async getAllTag () {
+      this.tagsList = await this.$TagsService.get().then(tagsList => tagsList.tags.sort())
+      this.tagsList = this.tagsList.filter(item => item.trim().length >= 1)
+    },
+    addNewTag () {
+      this.tagsList.push(this.newTag)
+      this.form.tagList.push(this.newTag)
     }
   }
 }
 </script>
 <style lang="scss">
-.login-box{
-  background-color:$bg-gray;
+.login-box {
+  background-color: $bg-gray;
 }
 </style>
