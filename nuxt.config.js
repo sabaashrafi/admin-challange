@@ -95,18 +95,25 @@ export default {
    */
   auth: {
     redirect: {
-      login: '/login'
+      login: '/login',
+      logout: '/login',
+      callback: '/login',
+      home: '/article'
     },
     strategies: {
       local: {
         tokenType: 'Token',
-
+        autoFetchUser: false,
         endpoints: {
           login: {
             url: '/users/login',
             method: 'post'
           },
-          user: false
+          user: {
+            url: '/user',
+            method: 'get'
+          },
+          logout: false
         }
       }
     }

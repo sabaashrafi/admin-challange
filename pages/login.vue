@@ -89,21 +89,19 @@ export default {
       if (this.$v.form.$anyError) {
         return
       }
-      try {
-        await this.$auth.loginWith('local', {
-          data: {
-            user: { ...this.form }
-          }
-        }).then((response) => {
-          this.$auth.setUser(response.data.user)
-          this.$auth.setUserToken(response.data.user.token)
-          this.$router.push('/article')
-        }).finally(() => {
-          this.buttonLoading = false
-        })
-      } catch (error) {
-        console.log(error)
-      }
+
+      await this.$auth.loginWith('local', {
+        data: {
+          user: { ...this.form }
+        }
+      }).then((response) => {
+        this.$auth.setUserToken(response.data.user.token)
+        this.$auth.setUser(response.data.user)
+
+        this.$router.push('/article')
+      }).finally(() => {
+        this.buttonLoading = false
+      })
     }
   }
 }

@@ -91,8 +91,8 @@ export default {
         await this.$axios.post('/users', {
           user: { ...this.form }
         }).then((response) => {
-          this.$auth.setUser(response.data.user)
           this.$auth.setUserToken(response.data.user.token)
+          this.$auth.setUser(response.data.user)
           this.$router.push('/article')
         }).finally(() => {
           this.buttonLoading = false
