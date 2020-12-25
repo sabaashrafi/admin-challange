@@ -16,5 +16,9 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
-
+# for see documents install vuese 
+$ npm -g install @vuese/cli
+# run document as a website
+$ vuese serve --open
+```
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
