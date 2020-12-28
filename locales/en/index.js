@@ -54,6 +54,7 @@ export default {
   * article pages words
   */
   articles: {
+    title: 'All Posts',
     table: ['Title', 'Author', 'Tags', 'Excerpt', 'Created'],
     dropDown: {
       edit: 'edit',

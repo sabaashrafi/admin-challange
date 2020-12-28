@@ -2,25 +2,20 @@
   <div>
     <b-navbar toggleable="lg" class="bg-dark">
       <b-navbar-nav>
-        <b-nav-item>
+        <b-navbar-brand>
           <h4 class="text-white">
             {{ $t('navbar.title') }}
           </h4>
-        </b-nav-item>
+        </b-navbar-brand>
         <b-nav-item>
-          <p class="text-white mb-0">
-            {{ $t('navbar.welcome') }} {{ $store.state.auth.user.username }}
+          <p class="text-white mb-0 mt-1">
+            {{ $t('navbar.welcome') }} <small>{{ $store.state.auth.user.username }}</small>
           </p>
         </b-nav-item>
       </b-navbar-nav>
-      <b-navbar-nav class="ml-auto">
-        <b-nav-item href="#">
-          <b-button variant="outline-primary" @click="logout">
-            {{ $t('navbar.logout') }}
-          </b-button>
-        </b-nav-item>
-      </b-navbar-nav>
+
       <b-navbar-toggle target="nav-collapse" />
+
       <!-- for md to down size -->
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class=" d-md-none d-block">
@@ -28,6 +23,13 @@
             <p class="text-white mb-0">
               {{ item.name }}
             </p>
+          </b-nav-item>
+        </b-navbar-nav>
+        <b-navbar-nav class="ml-auto mr-1">
+          <b-nav-item href="#">
+            <b-button variant="outline-primary" @click="logout">
+              {{ $t('navbar.logout') }}
+            </b-button>
           </b-nav-item>
         </b-navbar-nav>
       </b-collapse>

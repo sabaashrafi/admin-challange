@@ -125,6 +125,8 @@ export default {
 
         // push to article page
         this.$router.push('/article')
+      }).catch((error) => {
+        this.popToast('danger', `register Failed! ${Object.keys(error.response.data.errors)[0]} ${Object.values(error.response.data.errors)[0]}`)
       }).finally(() => {
         this.buttonLoading = false
       })

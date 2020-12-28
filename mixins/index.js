@@ -3,6 +3,6 @@ import Vue from 'vue'
 *  added globally vuelidate mixin
 */
 import { validationMixin } from 'vuelidate'
-import vuelidateMethod from './vuelidate'
+import globallyMixins from './globallyMixins'
 Vue.mixin(validationMixin)
-Vue.mixin(vuelidateMethod)
+Vue.mixin(globallyMixins)

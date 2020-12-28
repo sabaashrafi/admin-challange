@@ -3,14 +3,14 @@
     <header>
       <Nav />
     </header>
-    <b-row>
-      <b-col class="d-md-flex d-none" md="2">
+    <div class="d-flex">
+      <b-col class="d-md-flex d-none px-0" md="2">
         <Sidebar />
       </b-col>
       <b-col cols="12" md="10">
         <b-container> <Nuxt /></b-container>
       </b-col>
-    </b-row>
+    </div>
   </div>
 </template>
 <script>

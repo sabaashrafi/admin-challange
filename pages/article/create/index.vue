@@ -151,11 +151,21 @@ export default {
       this.buttonLoading = true
 
       if (this.mode === 'edit') {
-        await this.$ArticlesService.update(this.form).then((resp) => { this.$router.push('/article') }).finally(() => {
+        const slug = this.$route.query.slug
+
+        await this.$ArticlesService.update(slug, this.form).then((resp) => {
+          this.popToast('success', 'Well done! Article updated successfuly')
+          this.$router.push('/article')
+        }).catch((error) => {
+          this.popToast('danger', `Edit Failed! ${Object.keys(error.response.data.errors)[0]} ${Object.values(error.response.data.errors)[0]}`)
+        }).finally(() => {
           this.buttonLoading = false
         })
       } else {
-        await this.$ArticlesService.create(this.form).then((resp) => { this.$router.push('/article') }).finally(() => {
+        await this.$ArticlesService.create(this.form).then((resp) => {
+          this.popToast('success', 'Well done! Article created successfuly')
+          this.$router.push('/article')
+        }).finally(() => {
           this.buttonLoading = false
         })
       }

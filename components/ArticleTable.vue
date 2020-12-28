@@ -4,6 +4,7 @@
       show-empty
       responsive
       :items="items"
+      head-variant="light"
       :busy="loading"
       :fields="fields"
       :current-page="currentPage"
@@ -28,7 +29,7 @@
 
       <!-- created cell, format utc date -->
       <template #cell(createdAt)="data">
-        {{ $moment(data.createdAt).format("MMM D YYYY") }}
+        {{ $moment(data.createdAt).format("MMM D ,YYYY") }}
         <b-dropdown variant="primary" text="...">
           <b-dropdown-item @click="editArticle(data)">
             {{ $t('articles.dropDown.edit') }}

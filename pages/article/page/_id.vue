@@ -1,5 +1,8 @@
 <template>
   <div>
+    <h1 class="my-3">
+      {{ $t('articles.title') }}
+    </h1>
     <!-- Table component -->
     <ArticleTable
       show-empty

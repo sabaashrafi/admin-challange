@@ -110,7 +110,6 @@ export default {
       if (this.$v.form.$anyError) {
         return
       }
-
       await this.$auth.loginWith('local', {
         data: {
           user: { ...this.form }
@@ -122,9 +121,12 @@ export default {
 
         // Push to article page
         this.$router.push('/article')
-      }).finally(() => {
-        this.buttonLoading = false
+      }).catch((error) => {
+        this.popToast('danger', `Login Failed! ${Object.keys(error.response.data.errors)[0]} ${Object.values(error.response.data.errors)[0]}`)
       })
+        .finally(() => {
+          this.buttonLoading = false
+        })
     }
   }
 }
